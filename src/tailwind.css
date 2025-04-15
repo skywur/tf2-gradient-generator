@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+
+@keyframes gradientFlash {
+    0% {
+      background-position: 100% 0;
+      color: #333;
+    }
+    100% {
+      background-position: 0 100%;
+      color: #333;
+    }
+  }
+  
+  .animate {
+    background: linear-gradient(-45deg, #ef47bc,rgb(158, 106, 255), #ef47bc);
+    background-size: 300% 300%;
+    animation: gradientFlash 1s ease-in-out;
+  }
+
+  /* Sidebar styles */
+aside {
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+#saveButton {
+  display: none;
+}

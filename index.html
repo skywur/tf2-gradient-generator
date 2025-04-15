@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./src/output.css" />
+  <title>TF2 Gradient Chat Generator</title>
+</head>
+<body class="bg-base-200 text-base-content min-h-screen flex items-center justify-center">
+  <!-- Sidebar -->
+  <aside class="w-1/4 bg-base-100 p-4 shadow-lg">
+    <h2 class="text-xl font-bold mb-4">Saved Outputs</h2>
+    <ul id="savedOutputs" class="space-y-2">
+      <!-- Saved outputs will be dynamically added here -->
+    </ul>
+  </aside>
+  <!-- Main Content -->
+  <section class="hero min-h-screen bg-top rounded-3xl" style="background-image: url(./assets/glow-bottom.svg)">
+    <div class="card w-full max-w-lg shadow-xl bg-base-100 p-6">
+      <h1 class="text-2xl font-bold text-center mb-4">TF2 Gradient Chat Generator</h1>
+      <div class="form-control mb-4">
+        <label for="startColor" class="label">
+          <span class="label-text">Start Color:</span>
+        </label>
+        <input type="color" id="startColor" class="input w-full" placeholder="#FF0000">
+      </div>
+      <div class="form-control mb-4">
+        <label for="endColor" class="label">
+          <span class="label-text">End Color:</span>
+        </label>
+        <input type="color" id="endColor" class="input w-full" placeholder="#0000FF">
+      </div>
+      <div>
+        <div id="gradient"></div>
+      </div>
+      <div class="form-control mb-4">
+        <label for="message" class="label">
+          <span class="label-text">Message:</span>
+        </label>
+        <textarea id="message" class="textarea textarea-bordered w-full" placeholder="Enter your message here..."></textarea>
+      </div>
+      <div class="form-control mb-4">
+        <button id="generateButton" class="btn btn-primary w-full">Generate Gradient</button>
+      </div>
+      <div class="form-control mb-4">
+        <button id="copyButton" class="btn btn-secondary w-full" onclick="copyToClipboard(this)">Copy to Clipboard</button>
+      </div>
+      <pre id="output" class="output bg-base-300 p-4 rounded mb-4 overflow-x-scroll" onclick="selectText(this.id)" "></pre>
+      <div class="form-control mb-4">
+        <button id="saveButton" class="btn btn-primary w-full">Save Message</button>
+      </div>
+      <div id="error" class="error text-error text-sm"></div>
+    </div>
+  </section>
+
+  <script src="index.js"></script>
+
+</body>
+</html>
