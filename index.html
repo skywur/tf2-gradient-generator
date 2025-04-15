@@ -7,15 +7,15 @@
   <title>TF2 Gradient Chat Generator</title>
 </head>
 <body class="bg-base-200 text-base-content min-h-screen flex items-center justify-center">
-  <!-- Sidebar -->
-  <aside class="w-1/4 bg-base-100 p-4 shadow-lg">
-    <h2 class="text-xl font-bold mb-4">Saved Outputs</h2>
-    <ul id="savedOutputs" class="space-y-2">
-      <!-- Saved outputs will be dynamically added here -->
-    </ul>
-  </aside>
   <!-- Main Content -->
   <section class="hero min-h-screen bg-top rounded-3xl" style="background-image: url(./assets/glow-bottom.svg)">
+    <!-- Sidebar -->
+    <aside class="w-1/4 absolute left-0 bg-base-100 p-4 shadow-lg">
+      <h2 class="text-xl font-bold mb-4">Saved Outputs</h2>
+      <ul id="savedOutputs" class="space-y-2">
+        <!-- Saved outputs will be dynamically added here -->
+      </ul>
+    </aside>
     <div class="card w-full max-w-lg shadow-xl bg-base-100 p-6">
       <h1 class="text-2xl font-bold text-center mb-4">TF2 Gradient Chat Generator</h1>
       <div class="form-control mb-4">
@@ -51,9 +51,16 @@
       </div>
       <div id="error" class="error text-error text-sm"></div>
     </div>
+
+    <!-- Footer -->
+    <footer class="absolute bottom-4 right-4 text-sm">
+      <p class="text-white">Made with 💜 by <a class="text-purple-400 font-bold underline" href="https://skywur.cc">skywur</a></p>
+    </footer>
   </section>
 
   <script src="index.js"></script>
 
+
+<dummy class="p-2 bg-base-300 rounded flex justify-between items-center overflow-x-scroll h-12 hidden"></dummy>
 </body>
 </html>

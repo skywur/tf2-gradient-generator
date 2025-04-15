@@ -74,7 +74,7 @@ function hexToRgb(hex) {
       }
     }
 
-    output.textContent = gradient.join('');
+    output.innerHTML = parseColoredOutput(gradient.join(''));
     //output.textContent += `\n\nMessage Length: ${message.length}, Steps Used: ${steps}, Result Length: ${gradient.join('').length}`;
     //output.textContent += `\n\nNote: Copy the above text and paste it into TF2 chat. The colors will appear as a gradient.`;
 
@@ -87,23 +87,21 @@ function hexToRgb(hex) {
 
   });
 
-  function copyToClipboard() {
-    const el = document.createElement('textarea');
-    el.value = document.getElementById('output').innerText;
-    document.body.appendChild(el);
-    el.select();
+  function copyToClipboard(button) {
+    const text = document.getElementById('output').innerText; // Get the text from the output element
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
     document.execCommand('copy');
-    document.body.removeChild(el);
+    document.body.removeChild(textarea);
   
-    // Get the copy button
-    const copyButton = document.getElementById('copyButton');
-  
-    // Add the animate class
-    copyButton.classList.add('animate');
+    // Add the animate class to the button
+    button.classList.add('animate');
   
     // Remove the animate class when the animation ends
-    copyButton.addEventListener('animationend', () => {
-      copyButton.classList.remove('animate');
+    button.addEventListener('animationend', () => {
+      button.classList.remove('animate');
     });
   }
 
@@ -144,7 +142,19 @@ function hexToRgb(hex) {
   
     savedOutputs.forEach((output, index) => {
       const listItem = document.createElement('li');
-      listItem.className = 'p-2 bg-base-300 rounded flex justify-between items-center';
+      listItem.className = 'p-2 bg-base-300 rounded flex justify-between items-center overflow-x-scroll h-12';
+      listItem.onclick = () => {
+        const outputText = document.getElementById('output');
+        outputText.textContent = output;
+        copyToClipboard(this); // Copy to clipboard when clicked
+      }
+      // show copied tooltip
+      const copiedTooltip = document.createElement('span');
+      copiedTooltip.className = 'tooltip tooltip-bottom tooltip-open';
+      copiedTooltip.textContent = 'Copied!';
+      copiedTooltip.style.display = 'none'; // Initially hidden
+      listItem.appendChild(copiedTooltip);
+
   
       const outputPreview = document.createElement('span');
       outputPreview.innerHTML = parseColoredOutput(output); // Render colored output
@@ -152,7 +162,10 @@ function hexToRgb(hex) {
   
       const deleteButton = document.createElement('button');
       deleteButton.textContent = 'Delete';
-      deleteButton.className = 'btn btn-error btn-sm';
+      deleteButton.className = 'btn btn-error btn-sm ml-auto';
+      deleteButton.style.marginLeft = '10px';
+      deleteButton.style.position = 'absolute';
+      deleteButton.style.right = '10px';
       deleteButton.addEventListener('click', () => {
         savedOutputs.splice(index, 1);
         setCookie('savedOutputs', JSON.stringify(savedOutputs), 30);
@@ -166,8 +179,8 @@ function hexToRgb(hex) {
   
   // Parse output and render colored text
   function parseColoredOutput(output) {
-    return output.replace(/XXXXXXX([0-9A-Fa-f]{6})(.)/g, (_, color, char) => {
-      return `<span style="color: #${color}">${char}</span>`;
+    return output.replace(/XXXXXXX([0-9A-Fa-f]{6})([^]*)/g, (_, color, text) => {
+      return `<span style="color: #${color}">XXXXXXX${color}${text}</span>`;
     });
   }
   
